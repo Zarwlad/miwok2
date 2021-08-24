@@ -19,12 +19,11 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
-    TextView numbersView;
-    TextView colorsView;
-    TextView phrasesView;
-    TextView familyMembersView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,35 +31,13 @@ public class MainActivity extends AppCompatActivity {
 
         // Set the content of the activity to use the activity_main.xml layout file
         setContentView(R.layout.activity_main);
-        numbersView = findViewById(R.id.numbers);
-        colorsView = findViewById(R.id.colors);
-        phrasesView = findViewById(R.id.phrases);
-        familyMembersView = findViewById(R.id.family);
 
-        numbersView.setOnClickListener(v -> openNumbers());
-        colorsView.setOnClickListener(v -> openColors());
-        phrasesView.setOnClickListener(v -> openPhrases());
-        familyMembersView.setOnClickListener(v -> openFamilyMembers());
+        ViewPager viewPager = findViewById(R.id.viewpager);
 
-    }
+        MiwokPagerAdapter miwokPagerAdapter = new MiwokPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(miwokPagerAdapter);
 
-    private void openNumbers(){
-        Intent intent = new Intent(getApplicationContext(), NumbersActivity.class);
-        startActivity(intent);
-    }
-
-    private void openFamilyMembers(){
-        Intent intent = new Intent(getApplicationContext(), FamilyMembersActivity.class);
-        startActivity(intent);
-    }
-
-    private void openPhrases(){
-        Intent intent = new Intent(getApplicationContext(), PhrasesActivity.class);
-        startActivity(intent);
-    }
-
-    private void openColors(){
-        Intent intent = new Intent(getApplicationContext(), ColorsActivity.class);
-        startActivity(intent);
+        TabLayout tabLayout = findViewById(R.id.tab);
+        tabLayout.setupWithViewPager(viewPager);
     }
 }
